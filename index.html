@@ -2,517 +2,119 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <style>
-    body {
-      background-color: rgb(1, 10, 24);
-      background-repeat: repeat;
-      color: #5300ff;
-      font-family: 'Oswald', sans-serif;
-      letter-spacing: .2rem;
-      margin: 0;
-      overflow: hidden;
-      perspective: 1000px;
-      text-transform: uppercase;
-    }
-
-    .site-wrap {
-      transition: transform 0.6s cubic-bezier(0.55, 0, 0.1, 1);
-    }
-
-    .site-wrap.show-all {
-      transform: rotateY(-15deg) scale(0.2);
-    }
-
-    .panel-wrap {
-      height: 100vh;
-      width: 100vw;
-    }
-
-    h1 {
-      font-size: 10vmin;
-      margin: 0;
-    }
-
-    .panel-wrap {
-      perspective: 2000px;
-      transition: transform 0.3s cubic-bezier(0.55, 0, 0.1, 1);
-    }
-
-    .panel-wrap.animate--shrink,
-    .panel-wrap.animate--tilt,
-    .panel-wrap.animate--tilt2 {
-      transition: transform 0.3s cubic-bezier(0.55, 0, 0.1, 1) 0.3s;
-    }
-
-    .panel {
-      height: 100vh;
-      position: absolute;
-      transition: transform 0.3s cubic-bezier(0.55, 0, 0.1, 1);
-      width: 100vw;
-      will-change: transform;
-    }
-
-    .panel:before {
-      background-color: transparent;
-      bottom: 0;
-      content: "";
-      left: 0;
-      pointer-events: none;
-      position: absolute;
-      right: 0;
-      top: 0;
-      transition: background-color 0.3s cubic-bezier(0.55, 0, 0.1, 1);
-      z-index: 2;
-    }
-
-    .show-all .panel:before {
-      pointer-events: all;
-    }
-
-    .show-all .panel:hover:before {
-      background-color: rgba(83, 0, 255, 0.06);
-      cursor: pointer;
-      box-shadow: 0 0 10px 10px #3e219f4f, 0 0 12px 12px #3e219f4f;
-    }
-
-    .animate--shrink.animate .panel {
-      transform: scale(0.9);
-    }
-
-    .animate--tilt.animate .panel {
-      transform: scale(0.6) rotateY(-25deg);
-    }
-
-    .animate--tilt2.animate .panel {
-      transform: scale(0.8) rotateX(25deg);
-    }
-
-    .panel h1 {
-      font-size: 7.5vmin;
-      cursor: default;
-      left: 50%;
-      line-height: 1;
-      position: absolute;
-      text-align: center;
-      top: 10.5%;
-      transform: translateX(-50%) translateY(-50%);
-      user-select: none;
-      text-shadow: 0px 0px 1.9vmin #010b18, 0px 0px 9.9vmin blue;
-    }
-
-    .panel h1:hover {
-      text-shadow: 0px 0px 1.9vmin #010b18db, 0px 10px 9.9vmin #5300ff;
-    }
-
-    .panel[data-x-pos="-2"] {
-      left: -200%;
-    }
-
-    .panel[data-x-pos="-1"] {
-      left: -100%;
-    }
-
-    .panel[data-x-pos="1"] {
-      left: 100%;
-    }
-
-    .panel[data-x-pos="2"] {
-      left: 200%;
-    }
-
-    .panel[data-y-pos="-2"] {
-      top: 200%;
-    }
-
-    .panel[data-y-pos="-1"] {
-      top: 100%;
-    }
-
-    .panel[data-y-pos="1"] {
-      top: -100%;
-    }
-
-    .panel[data-y-pos="2"] {
-      top: -200%;
-    }
-
-    .panel__zoom {
-      cursor: pointer;
-      left: 50%;
-      opacity: .2;
-      position: absolute;
-      top: 50%;
-      transform: translateX(-50%) translateY(-50%) translateY(-12vmin);
-      transition: opacity 0.3s cubic-bezier(0.55, 0, 0.1, 1);
-      user-select: none;
-      z-index: 10;
-    }
-
-    .panel__zoom:hover {
-      opacity: 1;
-    }
-
-    .show-all .panel__zoom {
-      pointer-events: none;
-    }
-
-    .panel__nav {
-      cursor: pointer;
-      opacity: .5;
-      position: absolute;
-      transition: opacity 0.3s cubic-bezier(0.55, 0, 0.1, 1);
-      user-select: none;
-      will-change: opacity;
-    }
-
-    .panel__nav--up {
-      left: 50%;
-      top: 1rem;
-      transform: translateX(-50%);
-    }
-
-    .panel__nav--left {
-      left: 1rem;
-      top: 50%;
-      transform: translateY(-50%) rotate(-90deg) translateX(-100%);
-      transform-origin: top left;
-    }
-
-    .panel__nav--left-top {
-      left: 1rem;
-      top: 1rem;
-    }
-
-    .panel__nav--left-down {
-      bottom: 1rem;
-      left: 1rem;
-    }
-
-    .panel__nav--right {
-      right: 1rem;
-      top: 50%;
-      transform: translateY(-50%) rotate(90deg) translateX(100%);
-      transform-origin: top right;
-    }
-
-    .panel__nav--right-top {
-      right: 1rem;
-      top: 1rem;
-    }
-
-    .panel__nav--right-down {
-      bottom: 1rem;
-      right: 1rem;
-    }
-
-    .panel__nav--down {
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .panel__nav:hover {
-      opacity: 1;
-    }
-
-    .panel__animation-list {
-      font-size: 3.3vmin;
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translateX(-50%) translateY(-50%) translateY(14vmin);
-    }
-
-    .panel__animation-list span {
-      cursor: pointer;
-      display: inline-block;
-      opacity: .2;
-      position: relative;
-      transition: opacity 0.3s cubic-bezier(0.55, 0, 0.1, 1);
-      user-select: none;
-    }
-
-    .panel__animation-list span:after {
-      border-bottom: .3vmin solid transparent;
-      bottom: 0;
-      content: "";
-      left: -1px;
-      position: absolute;
-      right: 0;
-      transition: border-color 0.3s cubic-bezier(0.55, 0, 0.1, 1);
-      width: 100%;
-    }
-
-    .panel__animation-list span.active,
-    .panel__animation-list span:hover {
-      opacity: 1;
-    }
-
-    .panel__animation-list span.active:after,
-    .panel__animation-list span:hover:after {
-      border-color: white;
-    }
-  </style>
   <title>Panels</title>
+  <style>
+    @property --rotate {
+  syntax: "<angle>";
+  initial-value: 132deg;
+  inherits: false;
+}
+
+:root {
+  --card-height: 65vh;
+  --card-width: calc(var(--card-height) / 1.5);
+}
+
+
+body {
+  min-height: 100vh;
+  background: #212534;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  box-sizing: border-box;
+}
+
+
+.card {
+  background: #191c29;
+  width: var(--card-width);
+  height: var(--card-height);
+  padding: 3px;
+  position: relative;
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  font-size: 1.5em;
+  color: rgb(88 199 250 / 0%);
+  cursor: pointer;
+  font-family: cursive;
+}
+
+.card:hover {
+  color: rgb(88 199 250 / 100%);
+  transition: color 1s;
+}
+.card:hover:before, .card:hover:after {
+  animation: none;
+  opacity: 0;
+}
+
+
+.card::before {
+  content: "";
+  width: 104%;
+  height: 102%;
+  border-radius: 8px;
+  background-image: linear-gradient(
+    var(--rotate)
+    , #5ddcff, #3c67e3 43%, #4e00c2);
+    position: absolute;
+    z-index: -1;
+    top: -1%;
+    left: -2%;
+    animation: spin 2.5s linear infinite;
+}
+
+.card::after {
+  position: absolute;
+  content: "";
+  top: calc(var(--card-height) / 6);
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  transform: scale(0.8);
+  filter: blur(calc(var(--card-height) / 6));
+  background-image: linear-gradient(
+    var(--rotate)
+    , #5ddcff, #3c67e3 43%, #4e00c2);
+    opacity: 1;
+  transition: opacity .5s;
+  animation: spin 2.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    --rotate: 0deg;
+  }
+  100% {
+    --rotate: 360deg;
+  }
+}
+
+a {
+  color: #212534;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 2rem;
+}
+  </style>
 </head>
 
 <body>
-  <div class="site-wrap">
-    <div class="panel-wrap animate--none" style="transform: translateX(0%) translateY(0%);">
-      <!-- Center  -->
-      <div class="panel" data-x-pos="0" data-y-pos="0">
-        <span class="panel__nav panel__nav--up js-up">DatOS</span>
-        <span class="panel__nav panel__nav--right-top js-up js-right">up/right</span>
-        <span class="panel__nav panel__nav--left-top js-up js-left">Capture The Flag</span>
-        <span class="panel__nav panel__nav--left js-left">דירוג כוכבים / דפדוף</span>
-        <span class="panel__nav panel__nav--right js-right">תפריטים סמלים / נפתחים</span>
-        <span class="panel__nav panel__nav--right-down js-down js-right">בס״ד</span>
-        <span class="panel__nav panel__nav--left-down js-down js-left">down/left</span>
-        <span class="panel__nav panel__nav--down js-down">Certificates</span>
-        <span class="panel__zoom js-zoom">Show All</span>
-        <h1>AnLoMinus</h1>
-        <div class="panel__animation-list">
-          <span class="js-animation active" data-animation="animate--none"></span>
-          <!-- <span class="js-animation" data-animation="animate--shrink">Shrink</span> -->
-          <!-- <span class="js-animation" data-animation="animate--tilt">Tilt</span> -->
-          <!-- <span class="js-animation" data-animation="animate--tilt2">Tilt-2</span> -->
-        </div>
-      </div>
-      <!-- Center -->
-      <!-- Top Header -->
-      <div class="panel" data-x-pos="0" data-y-pos="1">
-        <span class="panel__nav panel__nav--left js-left">Capture The Flag</span>
-        <span class="panel__nav panel__nav--right js-right">right</span>
-        <span class="panel__nav panel__nav--right-down js-down js-right">תפריטים סמלים / נפתחים</span>
-        <span class="panel__nav panel__nav--left-down js-down js-left">דירוג כוכבים / דפדוף</span>
-        <span class="panel__nav panel__nav--down js-down">AnLoMinus</span>
-        <h1>DatOS</h1>
-      </div>
-      <!-- Top Header -->
-      <!-- Up Left -->
-      <div class="panel" data-x-pos="-1" data-y-pos="1">
-        <span class="panel__nav panel__nav--right-down js-down js-right">רשתות / לוחות שנה</span>
-        <span class="panel__nav panel__nav--right js-right">כפתורים / מחוונים</span>
-        <span class="panel__nav panel__nav--down js-down">דירוג כוכבים / דפדוף</span>
-        <h1>Capture The Flag</h1>
-        <span class="panel__nav panel__zoom"> <script src="https://tryhackme.com/badge/723537"></script> </span>
+<div class="card">
+  Magic Search
+</div>
 
-      </div>
-      <!-- Up Left -->
-      <!-- Up Right -->
-      <div class="panel" data-x-pos="1" data-y-pos="1">
-        <span class="panel__nav panel__nav--left-down js-down js-left">רשתות / לוחות שנה</span>
-        <span class="panel__nav panel__nav--left js-left">left</span>
-        <span class="panel__nav panel__nav--down js-down">תפריטים סמלים / נפתחים</span>
-        <h1>Up Right</h1>
-      </div>
-      <!-- Up Right -->
-      <!-- Left -->
-      <div class="panel" data-x-pos="-1" data-y-pos="0">
-        <span class="panel__nav panel__nav--up js-up">אקורדיונים / מפות</span>
-        <span class="panel__nav panel__nav--right-top js-up js-right">כפתורים / מחוונים</span>
-        <span class="panel__nav panel__nav--right js-right">רשתות / לוחות שנה</span>
-        <span class="panel__nav panel__nav--right-down js-down js-right">down/right</span>
-        <span class="panel__nav panel__nav--down js-down">down</span>
-        <h1>דירוג כוכבים / דפדוף</h1>
-      </div>
-      <!-- Left -->
-      <!-- Down Left -->
-      <div class="panel" data-x-pos="-1" data-y-pos="-1">
-        <span class="panel__nav panel__nav--up js-up">דירוג כוכבים / דפדוף</span>
-        <span class="panel__nav panel__nav--right-top js-up js-right">רשתות / לוחות שנה</span>
-        <span class="panel__nav panel__nav--right js-right">right</span>
-        <h1>Down Left</h1>
-      </div>
-      <!-- Down Left -->
-      <!-- Down Right -->
-      <div class="panel" data-x-pos="1" data-y-pos="-1">
-        <span class="panel__nav panel__nav--up js-up">תפריטים סמלים / נפתחים</span>
-        <span class="panel__nav panel__nav--left-top js-up js-left">up/left</span>
-        <span class="panel__nav panel__nav--left js-left">left</span>
-        <h1>Down Right</h1>
-      </div>
-      <!-- Down Right -->
-      <!-- Right -->
-      <div class="panel" data-x-pos="1" data-y-pos="0">
-        <span class="panel__nav panel__nav--up js-up">up</span>
-        <span class="panel__nav panel__nav--left-top js-up js-left">כפתורים / מחוונים</span>
-        <span class="panel__nav panel__nav--left js-left">דירוג כוכבים / דפדוף</span>
-        <span class="panel__nav panel__nav--left-down js-down js-left">down/left</span>
-        <span class="panel__nav panel__nav--down js-down">Certificates</span>
-        <h1>
-          תפריטים<br />
-          <!-- <h2>סמלים / נפתחים</h2> -->
-        </h1>
-      </div>
-      <!-- Right -->
-      <!-- Down -->
-      <div class="panel" data-x-pos="0" data-y-pos="-1">
-        <span class="panel__nav panel__nav--up js-up">רשתות / לוחות שנה</span>
-        <span class="panel__nav panel__nav--left-top js-up js-left">up/left</span>
-        <span class="panel__nav panel__nav--right-top js-up js-right">up/right</span>
-        <span class="panel__nav panel__nav--left js-left">left</span>
-        <span class="panel__nav panel__nav--right js-right">right</span>
-        <span class="panel__nav panel__nav--down js-down">HacKingPro</span>
-        <h1>Certificates</h1>
-      </div>
-      <!-- Down -->
-      <!-- Down 2 -->
-      <div class="panel" data-x-pos="0" data-y-pos="-2">
-        <span class="panel__nav panel__nav--up js-up">Certificates</span>
-        <h1>HacKingPro</h1>
-      </div>
-      <!-- Down 2 -->
-    </div>
-  </div>
-  <footer>
-    <script src="script.js"></script>
-    <script>
-      // Global
-      var win = window,
-        doc = document;
-
-      // Global Functions
-      function hasClass(el, cls) {
-        return el.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
-      };
-
-      function addClass(el, cls) {
-        if (!this.hasClass(el, cls)) {
-          el.className += " " + cls;
-        }
-      };
-
-      function removeClass(el, cls) {
-        if (this.hasClass(el, cls)) {
-
-          var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-          el.className = el.className.replace(reg, ' ');
-        }
-      };
-
-      // Elements
-
-      var site = doc.getElementsByClassName('site-wrap')[0];
-      var wrap = doc.getElementsByClassName('panel-wrap')[0];
-
-      var panel = doc.getElementsByClassName('panel');
-
-      var zoom = doc.getElementsByClassName('js-zoom');
-
-      var nav_up = doc.getElementsByClassName('js-up'),
-        nav_left = doc.getElementsByClassName('js-left'),
-        nav_right = doc.getElementsByClassName('js-right'),
-        nav_down = doc.getElementsByClassName('js-down');
-
-      var animation = doc.getElementsByClassName('js-animation');
-
-      // Tracking
-      var pos_x = 0,
-        pos_y = 0;
-
-      function setPos() {
-        wrap.style.transform = 'translateX(' + pos_x + '00%) translateY(' + pos_y + '00%)';
-        setTimeout(function() {
-          removeClass(wrap, 'animate');
-        }, 600);
-      }
-
-      setPos();
-
-      function moveUp() {
-        addClass(wrap, 'animate');
-        pos_y++;
-        setPos();
-      }
-
-      function moveLeft() {
-        addClass(wrap, 'animate');
-        pos_x++;
-        setPos();
-      }
-
-      function moveRight() {
-        addClass(wrap, 'animate');
-        pos_x--;
-        setPos();
-      }
-
-      function moveDown() {
-        addClass(wrap, 'animate');
-        pos_y--;
-        setPos();
-      }
-
-      for (var x = 0; x < nav_up.length; x++) {
-        nav_up[x].addEventListener('click', moveUp);
-      }
-
-      for (var x = 0; x < nav_left.length; x++) {
-        nav_left[x].addEventListener('click', moveLeft);
-      }
-
-      for (var x = 0; x < nav_right.length; x++) {
-        nav_right[x].addEventListener('click', moveRight);
-      }
-
-      for (var x = 0; x < nav_down.length; x++) {
-        nav_down[x].addEventListener('click', moveDown);
-      }
-
-      // Animations
-
-      for (var x = 0; x < animation.length; x++) {
-        (function(_x) {
-          animation[_x].addEventListener('click', function() {
-            toggleAnimation(_x);
-          });
-        })(x);
-      }
-
-      function toggleAnimation(i) {
-        for (var x = 0; x < animation.length; x++) {
-          if (i === x) {
-            addClass(animation[x], 'active');
-            addClass(wrap, animation[x].getAttribute('data-animation'));
-          } else {
-            removeClass(animation[x], 'active');
-            removeClass(wrap, animation[x].getAttribute('data-animation'));
-          }
-        }
-
-      }
-
-      for (var x = 0; x < zoom.length; x++) {
-        zoom[x].addEventListener('click', zoomOut);
-      }
-
-      function zoomOut(e) {
-        e.stopPropagation();
-        addClass(site, 'show-all');
-        for (var x = 0; x < panel.length; x++) {
-          (function(_x) {
-            panel[_x].addEventListener('click', setPanelAndZoom);
-          })(x);
-        }
-      }
-
-      function setPanelAndZoom(e) {
-        pos_x = -e.target.getAttribute('data-x-pos'),
-          pos_y = e.target.getAttribute('data-y-pos');
-        setPos();
-        zoomIn();
-      }
-
-
-      function zoomIn() {
-        for (var x = 0; x < panel.length; x++) {
-          panel[x].removeEventListener('click', setPanelAndZoom);
-        }
-        removeClass(site, 'show-all');
-      }
-    </script>
-  </footer>
+<a href="https://google.com/" target="_blank">Google</a>
 </body>
 
 </html>
