@@ -6,14 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <title>AnLoMinus</title>
   <link rel="stylesheet" href="main.css">
+  <script type="text/javascript" src="Addons/script.js">
+
+  </script>
   <style media="screen">
-  @import 'https://fonts.googleapis.com/css?family=Roboto+Mono:100';
+    @import 'https://fonts.googleapis.com/css?family=Roboto+Mono:100';
+
     html {
       font-family: 'Roboto Mono', monospace;
       background: #212121;
       height: 100%;
       width: auto;
     }
+
     body {
       font-family: 'Roboto Mono', monospace;
       background: #212121;
@@ -27,74 +32,78 @@
     בס״ד
   </div>
   <div class="text-center card-header gradient-border raise" id="MainTitle">
-  <div class="glitch firstText b2" data-text="AnLoMinus">AnLoMinus</div></div>
+    <div class="glitch firstText b2" data-text="AnLoMinus">AnLoMinus</div>
+  </div>
   <div class="text-center card-header gradient-border raise" id="MainTitle">
-      <style media="screen">
+    <style media="screen">
       @import 'https://fonts.googleapis.com/css?family=Roboto+Mono:100';
 
 
-    #glitch {
-      height: 100%;
-      width: 100%;
-      justify-content: center;
-      align-items: center;
-      display: flex;
-    }
-
-    #glitch {
-      font-weight: 700;
-      font-size: 28px;
-      color: #FAFAFA;
-    }
-
-    #glitch > .text > .dud {
-      color: red;
-    }
-
-    #glitch {
-      animation: 1500ms infinite normal glitch;
-    }
-
-    #glitch > span#cursor {
-      animation: 1500ms infinite normal cursor;
-    }
-
-    @keyframes glitch {
-      0% {
-        opacity: 0;
-        left: 0px;
+      #glitch {
+        height: 100%;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        display: flex;
       }
-      40% {
-        opacity: 1;
-        left: -2px;
-      }
-      80% {
-        opacity: 1;
-        left: -2px;
-      }
-    }
 
-    @keyframes cursor {
-      0% {
-        opacity: 0;
-        left: 0px;
+      #glitch {
+        font-weight: 700;
+        font-size: 28px;
+        color: #FAFAFA;
       }
-      40% {
-        opacity: 0;
-        left: -2px;
+
+      #glitch>.text>.dud {
+        color: red;
       }
-      80% {
-        opacity: 1;
-        left: -2px;
+
+      #glitch {
+        animation: 1500ms infinite normal glitch;
       }
-    }
+
+      #glitch>span#cursor {
+        animation: 1500ms infinite normal cursor;
+      }
+
+      @keyframes glitch {
+        0% {
+          opacity: 0;
+          left: 0px;
+        }
+
+        40% {
+          opacity: 1;
+          left: -2px;
+        }
+
+        80% {
+          opacity: 1;
+          left: -2px;
+        }
+      }
+
+      @keyframes cursor {
+        0% {
+          opacity: 0;
+          left: 0px;
+        }
+
+        40% {
+          opacity: 0;
+          left: -2px;
+        }
+
+        80% {
+          opacity: 1;
+          left: -2px;
+        }
+      }
     </style>
-    <div id="glitch" >
-    &nbsp;<div class="text"></div><span id="cursor">█</span>
-     </div>
+    <div id="glitch">
+      &nbsp;<div class="text"></div><span id="cursor">█</span>
+    </div>
     <!-- partial -->
-      <script>
-
+    <script>
       class TextScramble {
         constructor(el) {
           this.el = el
@@ -111,7 +120,12 @@
             const to = newText[i] || ''
             const start = Math.floor(Math.random() * 40)
             const end = start + Math.floor(Math.random() * 40)
-            this.queue.push({ from, to, start, end })
+            this.queue.push({
+              from,
+              to,
+              start,
+              end
+            })
           }
           cancelAnimationFrame(this.frameRequest)
           this.frame = 0
@@ -122,7 +136,13 @@
           let output = ''
           let complete = 0
           for (let i = 0, n = this.queue.length; i < n; i++) {
-            let { from, to, start, end, char } = this.queue[i]
+            let {
+              from,
+              to,
+              start,
+              end,
+              char
+            } = this.queue[i]
             if (this.frame >= end) {
               complete++
               output += to
@@ -160,12 +180,16 @@
         'I`m Freelancer',
         'I`m Multi Man',
         'Bug Hunter',
-        'Ethical Hacker',
-        'Penetration Tester',
-        'Graphic Designer',
-        'Video Editor',
+        'PC Technical',
         'Sound Editor',
         'Web Developer',
+        'Ethical Hacker',
+        'Graphic Designer',
+        'Product Promotion',
+        'Video Productions',
+        'Penetration Tester',
+        'Projects Management',
+        'Systems Administration',
         ''
       ]
 
@@ -183,6 +207,7 @@
       next()
     </script>
   </div>
+
   <div class="card-header gradient-border raise" id="MainMenu">
     <ul class="nav justify-content-center">
       <li class="col text-center nav-item raise gradient-border">
@@ -203,6 +228,31 @@
     </ul>
   </div>
   <div class="row card-body gradient-border raise " id="MainBody">
+    <div class="doit"></div>
+    <section>
+      <div class="text-center"><script src="https://tryhackme.com/badge/723537"></script></div>
+      <br>
+      <h1>Services</h1>
+      <br>
+      <p> I Have a fairly small, Flexible Design Studio that Designs for print and web.
+      <p> I work flexibly with Clients to Fulfil their Design needs.
+      <p> Whether you need to create a brand from scratch, including marketing materials and a beautiful and functional website or whether you are looking for a design refresh we are confident you will be pleased with the results.</p>
+      <p>I offer the following Services:</p>
+      <ul>
+        <li>Logos</li>
+        <li>Flyers</li>
+        <li>Branding</li>
+        <li>Websites</li>
+        <li>Illustration</li>
+        <li>Graphic Design</li>
+        <li>Business Cards</li>
+        <li>Ethical HacKing</li>
+        <li>Penetration Testing</li>
+        <li>Responsive Web Design</li>
+        <li>Content Management Systems</li>
+        <li>Web development – HTML5, CSS, jQuery</li>
+      </ul>
+    </section>
   </div>
   </div>
 </body>
@@ -227,8 +277,13 @@
     <li class="col text-center nav-item raise gradient-border">
       <a class="nav-link" href="https://api.WhatsApp.com/send?phone=972543285967">WhatsApp</a>
     </li>
+    <li class="col text-center nav-item raise gradient-border">
+      <a class="nav-link" href="https://www.linkedin.com/in/AnLoMinus">LinkedIn</a>
+      <i class="fa-linkedin"></i>
+    </li>
   </ul>
 </div>
+
 
 
 </html>
